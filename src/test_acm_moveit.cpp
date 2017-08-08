@@ -13,7 +13,17 @@ moveit_msgs::PlanningScene to_maintain_psm;
 collision_detection::AllowedCollisionMatrix acm;
 
 void planning_scene_cb(const moveit_msgs::PlanningSceneConstPtr& psm){
-    to_maintain_psm = *psm;
+    acm = psm->allowed_collision_matrix;
+    std::vector<std::string> acm_entry_names;
+    acm.getAllEntryNames(acm_entry_names);
+    for(size_t i = 0; i < acm_entry_names.size(); i++)
+        ROS_INFO_STREAM("The Entry number: " << i << " is: " << acm_entry_names[i]);
+    ROS_WARN("****************************************************");
+
+    for(size_t i = 0; i < psm->world.collision_objects.size(); i++)
+        ROS_INFO_STREAM("The Entry number: " << i << " is: " << psm->world.collision_objects[i]);
+    ROS_WARN("-------------------------------------------------------");
+
 }
 
 int main(int argc, char **argv){
@@ -62,7 +72,6 @@ int main(int argc, char **argv){
     //planning_scene::PlanningScenePtr planning_scene_(new planning_scene::PlanningScene());
     //planning_scene_monitor::PlanningSceneMonitorPtr ps(new planning_scene_monitor::PlanningSceneMonitor());
 
-    collision_detection::AllowedCollisionMatrix acm = ps->getAllowedCollisionMatrix();
     std::vector<std::string> acm_entry_names;
     ps->getAllowedCollisionMatrixNonConst().getAllEntryNames(acm_entry_names);
 
