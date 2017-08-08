@@ -1,0 +1,11 @@
+<launch>
+    <arg name="ns" default="dream_babbling/controller_node"/>
+    <param name="X" value="0.5"/>
+    <param name="Y" value="0.3"/>
+    <param name="Z" value="0.4"/>
+    <param name="clear_octomap" value="false"/>
+
+    <node name="test_acm_moveit_node" pkg="test_acm_moveit" type="test_acm_moveit" ns="$(arg ns)"  output="screen">
+    <!--node name="test_acm_moveit_node" pkg="test_acm_moveit" type="test_acm_moveit" output="screen"-->       
+    </node>
+</launch>
